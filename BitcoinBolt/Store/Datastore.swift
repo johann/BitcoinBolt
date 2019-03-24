@@ -13,13 +13,18 @@ final class DataStore {
     private init () {}
     static let shared = DataStore()
     var currentPrice: CurrentPrice?
-    var prices: [Currency: [DatePrice]] = [:]
+    var currentPriceByCurrency: [Currency: DatePrice] = [:]
+    var pricesByCurrency: [Currency: [DatePrice]] = [:]
+    var homeTimer: Timer?
     
     
-    
-    func fetchByDate() {
-        for (key, value) in prices {
-            
+    func fetchCurrentPriceAtInterval(_ timeInterval: TimeInterval = Constants.refreshRate, completion: @escaping () -> ()) {
+        self.fetchCurrentPrice { completion() }
+        Timer.scheduledTimer(withTimeInterval: timeInterval, repeats: true) {(timer) in
+            self.homeTimer = timer
+            self.fetchCurrentPrice {
+               completion()
+            }
         }
     }
     
@@ -30,16 +35,28 @@ final class DataStore {
         }
     }
     
-    func fetchAllPrices(completion: @escaping () -> ()) {
+    // TODO rename price to rate
+    func fetchPricesAtIndex(_ index: Int) -> [Currency: DatePrice] {
+        var prices: [Currency: DatePrice] = [:]
+        for currency in Currency.allCases {
+            guard let datePrices = self.pricesByCurrency[currency] else { return [:] }
+            let priceAtIndex = datePrices[index]
+            prices[currency] = priceAtIndex
+        }
+        return prices
+    }
+    
+    func fetchPastPrices(_ numOfDays: Int = Constants.numberOfDays, completion: @escaping () -> ()) {
         let operation = BlockOperation {
             let group = DispatchGroup()
             
             for currency in Currency.allCases {
                 group.enter()
-                print("currency")
                 ApiClient().getHistoricalLists(currency: currency, completion: { (prices) in
                     if let prices = prices {
-                        self.prices[currency] = prices.sorted { $0.dateValue > $1.dateValue }.removeFirst(Constants.numberOfDays)
+                        var sortedPrices = prices.sorted { $0.dateValue > $1.dateValue }
+                        self.currentPriceByCurrency[currency] = sortedPrices.removeFirst()
+                        self.pricesByCurrency[currency] = Array(sortedPrices[0..<numOfDays])
                     }
                     group.leave()
                 })

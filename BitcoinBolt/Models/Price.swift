@@ -8,12 +8,19 @@
 
 import Foundation
 
+protocol CurrencyCodable {}
 struct Price: Decodable {
     var code: String
     var rate: String
     var rate_float: Double
+    var priceWithCurrencyCode: String {
+        get {
+            return self.rate_float.currencyFormat(code: Currency(rawValue: code) ?? .EUR)!
+        }
+    }
+    
 }
-
+// TODO: Fix later
 struct DatePrice {
     var date: String
     var price: Double
@@ -26,4 +33,17 @@ struct DatePrice {
         }
     }
     
+    var priceWithCurrencyCode: String {
+        get {
+           return self.price.currencyFormat(code: self.currency)!
+        }
+    }
+    
 }
+
+extension DatePrice: Hashable {
+    var hashValue: Int {
+        return date.hashValue ^ price.hashValue ^ currency.hashValue
+    }
+}
+

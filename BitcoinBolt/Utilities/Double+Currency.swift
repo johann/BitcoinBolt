@@ -13,7 +13,7 @@ extension Double {
     func currencyFormat(code: Currency) -> String? {
         let formatter = NumberFormatter()
         formatter.numberStyle = .currency
-        formatter.locale = Locale(identifier: "EUR")
-        return formatter.string(for: "\(self)")
+        formatter.currencyCode = code.rawValue
+        return formatter.string(for: self)
     }
 }
