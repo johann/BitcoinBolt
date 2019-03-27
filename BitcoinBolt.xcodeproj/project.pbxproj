@@ -17,9 +17,9 @@
 		C126D23922486AE7009AE5D4 /* Bolt Widget.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = C126D22C22486AE7009AE5D4 /* Bolt Widget.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		C126D34D224AFC4A009AE5D4 /* BC_Logo_.png in Resources */ = {isa = PBXBuildFile; fileRef = C126D34C224AFC49009AE5D4 /* BC_Logo_.png */; };
 		C126D370224B88F4009AE5D4 /* DatastoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C126D36F224B88F4009AE5D4 /* DatastoreTests.swift */; };
-		C126D3C4224B9DF1009AE5D4 /* BitcoinKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C126D365224B28CD009AE5D4 /* BitcoinKit.framework */; };
-		C126D3C5224B9DF1009AE5D4 /* BitcoinKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C126D365224B28CD009AE5D4 /* BitcoinKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C129B52D2246810900DDD303 /* ListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C129B52C2246810900DDD303 /* ListViewController.swift */; };
+		C1548B3122530D0200BDFE0B /* BitcoinKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C126D365224B28CD009AE5D4 /* BitcoinKit.framework */; };
+		C1548B3222530D0200BDFE0B /* BitcoinKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C126D365224B28CD009AE5D4 /* BitcoinKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C1A9A4B322445712006DE559 /* Datastore.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1A9A4B222445712006DE559 /* Datastore.swift */; };
 		C1A9A4B62244A9F5006DE559 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1A9A4B52244A9F5006DE559 /* Constants.swift */; };
 		C1CBAB772242CEDC002092E3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1CBAB762242CEDC002092E3 /* AppDelegate.swift */; };
@@ -52,7 +52,7 @@
 			remoteGlobalIDString = C126D25122486CBD009AE5D4;
 			remoteInfo = BitcoinKitTests;
 		};
-		C126D3C6224B9DF1009AE5D4 /* PBXContainerItemProxy */ = {
+		C1548B3322530D0200BDFE0B /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = C126D35F224B28CD009AE5D4 /* BitcoinKit.xcodeproj */;
 			proxyType = 1;
@@ -87,13 +87,13 @@
 			name = "Embed App Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		C126D3C8224B9DF1009AE5D4 /* Embed Frameworks */ = {
+		C1548B3522530D0200BDFE0B /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				C126D3C5224B9DF1009AE5D4 /* BitcoinKit.framework in Embed Frameworks */,
+				C1548B3222530D0200BDFE0B /* BitcoinKit.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -143,7 +143,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C126D3C4224B9DF1009AE5D4 /* BitcoinKit.framework in Frameworks */,
+				C1548B3122530D0200BDFE0B /* BitcoinKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -330,13 +330,13 @@
 				C1CBAB702242CEDC002092E3 /* Frameworks */,
 				C1CBAB712242CEDC002092E3 /* Resources */,
 				C126D23D22486AE7009AE5D4 /* Embed App Extensions */,
-				C126D3C8224B9DF1009AE5D4 /* Embed Frameworks */,
+				C1548B3522530D0200BDFE0B /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 				C126D23822486AE7009AE5D4 /* PBXTargetDependency */,
-				C126D3C7224B9DF1009AE5D4 /* PBXTargetDependency */,
+				C1548B3422530D0200BDFE0B /* PBXTargetDependency */,
 			);
 			name = BitcoinBolt;
 			productName = BitcoinBolt;
@@ -534,10 +534,10 @@
 			target = C126D22B22486AE7009AE5D4 /* Bolt Widget */;
 			targetProxy = C126D23722486AE7009AE5D4 /* PBXContainerItemProxy */;
 		};
-		C126D3C7224B9DF1009AE5D4 /* PBXTargetDependency */ = {
+		C1548B3422530D0200BDFE0B /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = BitcoinKit;
-			targetProxy = C126D3C6224B9DF1009AE5D4 /* PBXContainerItemProxy */;
+			targetProxy = C1548B3322530D0200BDFE0B /* PBXContainerItemProxy */;
 		};
 		C1CBAB892242CEE0002092E3 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -747,7 +747,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.johannkerr.BitcoinBolt;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -766,7 +766,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.johannkerr.BitcoinBolt;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;

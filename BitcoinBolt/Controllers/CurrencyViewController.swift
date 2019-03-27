@@ -25,8 +25,7 @@ class CurrencyViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setUpViews()
-        
+
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -41,7 +40,7 @@ class CurrencyViewController: UIViewController {
     }
     
     private func animateViews() {
-        UIView.animate(withDuration: 0.5, delay: 0.0, options: [.curveEaseOut], animations: {
+        UIView.animate(withDuration: 0.3, delay: 0.0, options: [.curveEaseOut], animations: {
             self.usdXLayout.constant -= self.view.bounds.width
             self.eurXLayout.constant += self.view.bounds.width
             self.gbpXLayout.constant -= self.view.bounds.width

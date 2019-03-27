@@ -18,14 +18,12 @@ class TodayViewController: UIViewController, NCWidgetProviding {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        extensionContext?.widgetLargestAvailableDisplayMode = .expanded
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
         fetchCurrentPriceAtInterval { (currentPrice) in
-            guard let currentPrice = currentPrice else { return }
             DispatchQueue.main.async {
                 self.bitcoinImageView.image = UIImage(named: "BC_Logo_.png")
                 self.priceLabel.text = currentPrice.eurPrice.priceWithCurrencyCode
@@ -54,28 +52,40 @@ class TodayViewController: UIViewController, NCWidgetProviding {
     }
     
     
-    private func fetchCurrentPriceAtInterval(_ timeInterval: TimeInterval = 10.0, completion: @escaping (CurrentPrice?) -> ()) {
-        BitcoinClient().getCurrentPrice { currentPrice in
-            completion(currentPrice)
+    private func fetchCurrentPriceAtInterval(_ timeInterval: TimeInterval = 10.0, completion: @escaping (CurrentPrice) -> ()) {
+        BitcoinClient().getCurrentPrice { result in
+            switch result {
+            case .success(let currentPrice):
+                completion(currentPrice)
+            case .failure:
+                break
+            }
         }
         
         Timer.scheduledTimer(withTimeInterval: timeInterval, repeats: true) {(timer) in
-            BitcoinClient().getCurrentPrice { currentPrice in
-                self.timer = timer
-                completion(currentPrice)
+            BitcoinClient().getCurrentPrice { result in
+                switch result {
+                case .success(let currentPrice):
+                    self.timer = timer
+                    completion(currentPrice)
+                case .failure:
+                    break
+                }
             }
         }
     }
     
     
     func fetchYesterdaysPrice(completion: @escaping (DatePrice) -> ()) {
-        BitcoinClient().getHistoricalLists { (prices) in
-            if let prices = prices {
+        BitcoinClient().getHistoricalLists { (result) in
+            switch result {
+            case .success(let prices):
                 var sortedPrices = prices.sorted { $0.dateValue > $1.dateValue }
                 let yesterday = sortedPrices[1]
                 completion(yesterday)
+            case .failure:
+                break
             }
-            
         }
     }
         

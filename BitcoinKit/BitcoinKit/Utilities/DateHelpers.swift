@@ -9,13 +9,13 @@
 import Foundation
 
 public extension Date {
-    public func monthAsString() -> String {
+    func monthAsString() -> String {
         let dateFormatter = DateFormatter()
         dateFormatter.setLocalizedDateFormatFromTemplate("MMM")
         return dateFormatter.string(from: self)
     }
     
-    public func weekday() -> Int {
+    func weekday() -> Int {
         return Calendar.current.component(.day, from: self)
     }
 }

@@ -9,7 +9,7 @@
 import Foundation
 
 public extension Double {
-    public func currencyFormat(code: String) -> String? {
+    func currencyFormat(code: String) -> String? {
         let formatter = NumberFormatter()
         formatter.numberStyle = .currency
         formatter.currencyCode = code

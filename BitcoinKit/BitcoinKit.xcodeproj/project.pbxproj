@@ -18,6 +18,7 @@
 		C126D2B02248779D009AE5D4 /* DateHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = C126D2AF2248779D009AE5D4 /* DateHelpers.swift */; };
 		C126D2B2224877DF009AE5D4 /* Double+Currency.swift in Sources */ = {isa = PBXBuildFile; fileRef = C126D2B1224877DF009AE5D4 /* Double+Currency.swift */; };
 		C126D359224B1243009AE5D4 /* HelperTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C126D358224B1243009AE5D4 /* HelperTests.swift */; };
+		C1548B2B2252FD2D00BDFE0B /* BitcoinKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C126D24822486CBD009AE5D4 /* BitcoinKit.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -52,6 +53,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C1548B2B2252FD2D00BDFE0B /* BitcoinKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -72,6 +74,7 @@
 				C126D24A22486CBD009AE5D4 /* BitcoinKit */,
 				C126D25522486CBD009AE5D4 /* BitcoinKitTests */,
 				C126D24922486CBD009AE5D4 /* Products */,
+				C1548B2A2252FD2D00BDFE0B /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -132,6 +135,13 @@
 				C126D2B1224877DF009AE5D4 /* Double+Currency.swift */,
 			);
 			path = Utilities;
+			sourceTree = "<group>";
+		};
+		C1548B2A2252FD2D00BDFE0B /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -209,6 +219,7 @@
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
+				Base,
 			);
 			mainGroup = C126D23E22486CBC009AE5D4;
 			productRefGroup = C126D24922486CBD009AE5D4 /* Products */;
@@ -418,7 +429,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -445,7 +456,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.johannkerr.BitcoinKit;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;

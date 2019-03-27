@@ -37,12 +37,13 @@ class ListViewController: UICollectionViewController {
     
     
     func setupList() {
-        store.fetchPastPrices {
+        store.fetchPastPrices { 
             guard let rates = self.store.pricesByCurrency[Constants.defaultCurrency] else { return }
             self.rates = rates
             
             DispatchQueue.main.async {
                 self.collectionView.reloadData()
+                self.renderErrors()
             }
         }
     }
@@ -53,6 +54,16 @@ class ListViewController: UICollectionViewController {
                 self.collectionView.reloadData()
             }
         }
+    }
+    
+    func renderErrors() {
+        for (index, error) in store.errors.enumerated() {
+            let alert = UIAlertController(title: "Error!", message: "\(error.localizedDescription)", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: NSLocalizedString("OK", comment: "Default action"), style: .default, handler: nil))
+            self.present(alert, animated: true, completion: nil)
+            store.errors.remove(at: index)
+        }
+        
     }
     
     // MARK: Navigation Helper
@@ -101,7 +112,6 @@ extension ListViewController {
             
             let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(showDetailViewForHeader))
             headerView.addGestureRecognizer(tapGestureRecognizer)
-            
             if let price = self.store.currentPrice {
                 headerView.rateLabel.text = price.eurPrice.priceWithCurrencyCode
             }

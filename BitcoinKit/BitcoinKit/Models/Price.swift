@@ -21,7 +21,7 @@ public struct Price: Codable {
     
     
 }
-public struct DatePrice: Codable {
+public class DatePrice: Codable {
     public var date: String
     public var currency: String
     public var price: Double
@@ -47,6 +47,10 @@ public struct DatePrice: Codable {
 }
 
 extension DatePrice: Hashable {
+    public static func == (lhs: DatePrice, rhs: DatePrice) -> Bool {
+        return lhs.currency == rhs.currency && lhs.price == lhs.price
+    }
+    
     public var hashValue: Int {
         return date.hashValue ^ price.hashValue ^ currency.hashValue
     }

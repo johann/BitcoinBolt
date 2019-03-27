@@ -10,6 +10,7 @@ import Foundation
 import CoreData
 import BitcoinKit
 
+typealias Handler = () -> ()
 
 final class DataStore {
     private init () {}
@@ -19,8 +20,9 @@ final class DataStore {
     var currentPriceByCurrency: [Currency: DatePrice] = [:]
     var pricesByCurrency: [Currency: [DatePrice]] = [:]
     var homeTimer: Timer?
+    var errors = [Error]()
     
-    func fetchCurrentPriceAtInterval(_ timeInterval: TimeInterval = Constants.refreshRate, completion: @escaping () -> ()) {
+    func fetchCurrentPriceAtInterval(_ timeInterval: TimeInterval = Constants.refreshRate, completion: @escaping Handler) {
         self.fetchCurrentPrice { completion() }
         Timer.scheduledTimer(withTimeInterval: timeInterval, repeats: true) {(timer) in
             self.homeTimer = timer
@@ -30,35 +32,44 @@ final class DataStore {
         }
     }
     
-    func fetchCurrentPrice(client: BitcoinClient = BitcoinClient(), completion: @escaping () -> ()) {
-        client.getCurrentPrice { (currentPrice) in
-            self.currentPrice = currentPrice
+    func fetchCurrentPrice(client: BitcoinClient = BitcoinClient(), completion: @escaping Handler) {
+        client.getCurrentPrice { (result) in
+            switch result {
+            case .success(let currentPrice):
+                self.currentPrice = currentPrice
+            case .failure(let error):
+                self.errors.append(error)
+            }
             completion()
         }
     }
     
-    func fetchPastPrices(_ numOfDays: Int = Constants.numberOfDays, client: BitcoinClient = BitcoinClient(), completion: @escaping () -> ()) {
+    func fetchPastPrices(_ numOfDays: Int = Constants.numberOfDays, client: BitcoinClient = BitcoinClient(), completion: @escaping Handler) {
         let operation = BlockOperation {
             let group = DispatchGroup()
             
             for currency in Currency.allCases {
                 group.enter()
-                BitcoinClient().getHistoricalLists(currency: currency, completion: { (prices) in
-                    if let prices = prices {
+                BitcoinClient().getHistoricalLists(currency: currency) { (result) in
+                    switch result {
+                    case .success(let prices):
                         var sortedPrices = prices.sorted { $0.dateValue > $1.dateValue }
                         self.currentPriceByCurrency[currency] = sortedPrices.removeFirst()
                         self.pricesByCurrency[currency] = Array(sortedPrices[0..<numOfDays])
+
+                    case .failure(let error):
+                        self.errors.append(error)
+
                     }
+                    
                     group.leave()
-                })
+                }
             }
             group.wait()
         }
-        
         let completionOperation = BlockOperation {
            completion()
         }
-        
         completionOperation.addDependency(operation)
         operation.start()
         completionOperation.start()

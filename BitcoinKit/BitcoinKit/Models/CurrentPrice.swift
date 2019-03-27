@@ -32,6 +32,7 @@ public struct CurrentPrice {
 extension CurrentPrice: Decodable {
     enum TimeCodingKeys: String, CodingKey { case updated, updateduk, updatedISO }
     enum CurrencyKeys: String, CodingKey { case USD, EUR }
+
     public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: TopLevelCodingKeys.self)
         let timeContainer = try container.nestedContainer(keyedBy: TimeCodingKeys.self, forKey: .time)
