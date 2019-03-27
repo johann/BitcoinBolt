@@ -8,4 +8,4 @@
 
 import Foundation
 
-enum Currency: String, CaseIterable { case USD, EUR, GBP }
+public enum Currency: String, CaseIterable, Codable { case USD, EUR, GBP }

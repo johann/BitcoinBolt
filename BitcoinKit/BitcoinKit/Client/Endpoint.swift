@@ -8,7 +8,7 @@
 
 import Foundation
 
-enum Endpoint {
+public enum Endpoint {
   case currentPrice(Currency)
   case historicalPrice(Currency)
   var apiBase: String {

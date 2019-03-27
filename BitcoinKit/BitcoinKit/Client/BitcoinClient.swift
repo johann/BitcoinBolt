@@ -9,7 +9,8 @@
 import Foundation
 
 
-final class WebService {
+
+public class WebService {
     func request(url: URL, completion: @escaping (Data?, Error?) -> ()) {
         URLSession.shared.dataTask(with: url) { (data, _, error) in
             completion(data, error)
@@ -17,12 +18,12 @@ final class WebService {
     }
 }
 
-class ApiClient {
+public class BitcoinClient {
     var service: WebService
-    init(service: WebService) { self.service = service }
-    init() { self.service = WebService() }
+    public init(service: WebService) { self.service = service }
+    public init() { self.service = WebService() }
     
-    func getCurrentPrice(currency: Currency = .EUR, completion:@escaping (CurrentPrice?) -> ()) {
+    public func getCurrentPrice(currency: Currency = .EUR, completion:@escaping (CurrentPrice?) -> ()) {
         guard let url = URL(.currentPrice(currency)) else { return }
         self.service.request(url: url) { (data, error) in
             let currentPrice = data.flatMap(CurrentPrice.parse)
@@ -30,10 +31,10 @@ class ApiClient {
         }
     }
     
-    func getHistoricalLists(currency: Currency = .EUR, completion: @escaping ([DatePrice]?) -> ()) {
+    public func getHistoricalLists(currency: Currency = .EUR, completion: @escaping ([DatePrice]?) -> ()) {
         guard let url = URL(.historicalPrice(currency)) else { return }
     
-        URLSession.shared.dataTask(with: url) { (data, response, err) in
+        self.service.request(url: url) { (data, error) in
             if let data = data {
                 do {
                     let jsonData = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any] ?? [:]
@@ -42,9 +43,8 @@ class ApiClient {
                     var prices = [DatePrice]()
                     for (date, price) in bpi {
                         if let price = price as? Double {
-                            prices.append(DatePrice(date: date, price: price, currency: currency))
+                            prices.append(DatePrice(date: date, currency: currency.rawValue, price: price))
                         } else {
-                            // TODO: - Error
                             completion(nil)
                         }
                     }
@@ -53,7 +53,7 @@ class ApiClient {
                     completion(nil)
                 }
             }
-        }.resume()
+        }
     }
 }
 

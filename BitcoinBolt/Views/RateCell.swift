@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import BitcoinKit
 
 class RateCell: UICollectionViewCell {
     @IBOutlet weak var rateLabel: UILabel!
@@ -14,10 +15,10 @@ class RateCell: UICollectionViewCell {
     @IBOutlet weak var monthLabel: UILabel!
     
     
-    func configureCell(_ price: DatePrice) {
-        self.rateLabel.text = price.priceWithCurrencyCode
-        self.dayLabel.text = "\(price.dateValue.weekday())"
-        self.monthLabel.text = "\(price.dateValue.monthAsString())"
+    func configureCell(_ rate: DatePrice) {
+        self.rateLabel.text = rate.priceWithCurrencyCode
+        self.dayLabel.text = "\(rate.dateValue.weekday())"
+        self.monthLabel.text = "\(rate.dateValue.monthAsString())"
     }
     
 }

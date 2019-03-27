@@ -8,18 +8,18 @@
 
 import Foundation
 
-enum TopLevelCodingKeys: String, CodingKey { case time, bpi }
+public enum TopLevelCodingKeys: String, CodingKey { case time, bpi }
 
-struct CurrentPrice: Decodable {
-    var eurPrice: Price
-    var usPrice: Price
+public struct CurrentPrice: Decodable {
+    public var eurPrice: Price
+    public var usPrice: Price
     var updatedAt: Date?
     
     
     enum TimeCodingKeys: String, CodingKey { case updated, updateduk, updatedISO }
     enum CurrencyKeys: String, CodingKey { case USD, EUR }
     
-    init(from decoder: Decoder) throws {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: TopLevelCodingKeys.self)
         let timeContainer = try container.nestedContainer(keyedBy: TimeCodingKeys.self, forKey: .time)
         let dateString = try timeContainer.decode(String.self, forKey: .updatedISO)

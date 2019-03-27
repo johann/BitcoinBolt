@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="M4Y-Lb-cyx">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Today View Controller-->
+        <scene sceneID="cwh-vc-ff4">
+            <objects>
+                <viewController id="M4Y-Lb-cyx" customClass="TodayViewController" customModule="Bolt_Widget" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" simulatedAppContext="notificationCenter" id="S3S-Oj-5AN">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="50"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QUu-aB-tBS">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="30"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="25"/>
+                                <color key="textColor" red="0.82288695580000004" green="0.83103435140000004" blue="0.83103435140000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JuJ-00-Uaf">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="14"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="320" id="Qdw-WU-cWL"/>
+                                    <constraint firstAttribute="height" constant="14" id="bDU-H8-qN2"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-BoldItalic" family="Helvetica Neue" pointSize="16"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="eOC-z5-bLa">
+                                <rect key="frame" x="15" y="5" width="40" height="40"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="L1I-Vf-psT"/>
+                                    <constraint firstAttribute="width" constant="40" id="ovE-As-vXw"/>
+                                </constraints>
+                            </imageView>
+                        </subviews>
+                        <constraints>
+                            <constraint firstItem="JuJ-00-Uaf" firstAttribute="top" secondItem="QUu-aB-tBS" secondAttribute="bottom" constant="-30" id="2sp-Gu-iMm"/>
+                            <constraint firstItem="QUu-aB-tBS" firstAttribute="trailing" secondItem="ssy-KU-ocm" secondAttribute="trailing" id="9Xj-dN-gvt"/>
+                            <constraint firstItem="JuJ-00-Uaf" firstAttribute="centerX" secondItem="S3S-Oj-5AN" secondAttribute="centerX" id="QT5-fp-Osn"/>
+                            <constraint firstItem="QUu-aB-tBS" firstAttribute="bottom" secondItem="ssy-KU-ocm" secondAttribute="bottom" constant="-20" id="XEj-MC-eTp"/>
+                            <constraint firstItem="eOC-z5-bLa" firstAttribute="centerY" secondItem="S3S-Oj-5AN" secondAttribute="centerY" id="YkQ-lp-guV"/>
+                            <constraint firstItem="QUu-aB-tBS" firstAttribute="top" secondItem="ssy-KU-ocm" secondAttribute="top" id="jib-4e-JBF"/>
+                            <constraint firstItem="QUu-aB-tBS" firstAttribute="leading" secondItem="ssy-KU-ocm" secondAttribute="leading" id="o22-x3-j7g"/>
+                            <constraint firstItem="eOC-z5-bLa" firstAttribute="leading" secondItem="ssy-KU-ocm" secondAttribute="leading" constant="15" id="wSB-gp-Hnu"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="ssy-KU-ocm"/>
+                    </view>
+                    <extendedEdge key="edgesForExtendedLayout"/>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <size key="freeformSize" width="320" height="50"/>
+                    <connections>
+                        <outlet property="bitcoinImageView" destination="eOC-z5-bLa" id="v3W-TY-fBJ"/>
+                        <outlet property="differenceLabel" destination="JuJ-00-Uaf" id="0bu-mH-b3t"/>
+                        <outlet property="priceLabel" destination="QUu-aB-tBS" id="mei-hd-bYz"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="vXp-U4-Rya" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="54.399999999999999" y="25.187406296851577"/>
+        </scene>
+    </scenes>
+</document>

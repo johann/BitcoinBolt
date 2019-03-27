@@ -7,10 +7,11 @@
 //
 
 import UIKit
+import BitcoinKit
 
 class ListViewController: UICollectionViewController {
     
-    var prices = [DatePrice]()
+    var rates = [DatePrice]()
     let store = DataStore.shared
 
     override func viewDidLoad() {
@@ -19,13 +20,13 @@ class ListViewController: UICollectionViewController {
         self.collectionView.dataSource = self
         
         setupCollectionViewLayout()
-        self.setupList()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.hideNavigationBarMargin()
-        setupHeader()
+        self.setupList()
+        self.setupHeader()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -34,7 +35,17 @@ class ListViewController: UICollectionViewController {
         timer.invalidate()
     }
     
-    // MARK: View Helpers
+    
+    func setupList() {
+        store.fetchPastPrices {
+            guard let rates = self.store.pricesByCurrency[Constants.defaultCurrency] else { return }
+            self.rates = rates
+            
+            DispatchQueue.main.async {
+                self.collectionView.reloadData()
+            }
+        }
+    }
     
     func setupHeader() {
         store.fetchCurrentPriceAtInterval {
@@ -44,17 +55,7 @@ class ListViewController: UICollectionViewController {
         }
     }
     
-    func setupList() {
-        store.fetchPastPrices {
-            guard let prices = self.store.pricesByCurrency[Constants.defaultCurrency] else { return }
-            self.prices = prices
-            
-            DispatchQueue.main.async {
-                self.collectionView.reloadData()
-            }
-        }
-    }
-    
+    // MARK: View Helpers
     
     func setupCollectionViewLayout() {
         guard let layout = collectionViewLayout as? UICollectionViewFlowLayout else { return }
@@ -63,27 +64,27 @@ class ListViewController: UICollectionViewController {
         layout.minimumLineSpacing = 2
     }
     
-    @objc func showDetailView() {
+    @objc func showDetailViewForHeader() {
         let storyboard = UIStoryboard(name:"Main", bundle: nil)
-        guard let currencyController = storyboard.instantiateViewController(withIdentifier: "currencyController") as? CurrencyViewController else { return }
-        currencyController.prices = self.store.currentPriceByCurrency
-        
+        guard let currencyController = storyboard.instantiateViewController(withIdentifier: Constants.currencyControllerIdentifier) as? CurrencyViewController else { return }
+        currencyController.rates = self.store.currentPriceByCurrency
         
         self.present(currencyController, animated: true, completion: nil)
     }
 }
 
+// MARK: CollectionView DataSource
+
 extension ListViewController {
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return self.prices.count
+        return self.rates.count
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as? RateCell else { fatalError("invalid cell") }
-        let datePrice = self.prices[indexPath.row]
-        cell.configureCell(datePrice)
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Constants.rateCellIdentifier, for: indexPath) as? RateCell else { fatalError("invalid cell") }
         
-
+        let datePrice = self.rates[indexPath.row]
+        cell.configureCell(datePrice)
         return cell
     }
     
@@ -92,11 +93,11 @@ extension ListViewController {
         case UICollectionView.elementKindSectionHeader:
             guard let headerView = collectionView.dequeueReusableSupplementaryView(
                     ofKind: kind,
-                    withReuseIdentifier: "headerView",
+                    withReuseIdentifier: Constants.headerView,
                     for: indexPath) as? HeaderView
                 else { fatalError("Invalid view type") }
             
-            let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(showDetailView))
+            let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(showDetailViewForHeader))
             headerView.addGestureRecognizer(tapGestureRecognizer)
             
             if let price = self.store.currentPrice {
@@ -108,19 +109,14 @@ extension ListViewController {
             assert(false, "Invalid element type")
         }
     }
-    
-
-    
-    
 }
 
 extension ListViewController  {
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        print("Loading screen")
         let prices = self.store.fetchPricesAtIndex(indexPath.row)
         let storyboard = UIStoryboard(name:"Main", bundle: nil)
-        guard let currencyController = storyboard.instantiateViewController(withIdentifier: "currencyController") as? CurrencyViewController else { return }
-        currencyController.prices = prices
+        guard let currencyController = storyboard.instantiateViewController(withIdentifier: Constants.currencyControllerIdentifier) as? CurrencyViewController else { return }
+        currencyController.rates = prices
 
 
         self.present(currencyController, animated: true, completion: nil)

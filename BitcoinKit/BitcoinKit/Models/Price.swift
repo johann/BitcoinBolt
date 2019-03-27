@@ -8,24 +8,23 @@
 
 import Foundation
 
-protocol CurrencyCodable {}
-struct Price: Decodable {
-    var code: String
-    var rate: String
-    var rate_float: Double
-    var priceWithCurrencyCode: String {
+public struct Price: Codable {
+    public var code: String
+    public var rate: String
+    public var rate_float: Double
+    public var priceWithCurrencyCode: String {
         get {
-            return self.rate_float.currencyFormat(code: Currency(rawValue: code) ?? .EUR)!
+            return self.rate_float.currencyFormat(code: self.code) ?? ""
         }
     }
     
 }
-// TODO: Fix later
-struct DatePrice {
-    var date: String
-    var price: Double
-    var currency: Currency
-    var dateValue: Date {
+
+public struct DatePrice: Codable {
+    public var date: String
+    public var currency: String
+    public var price: Double
+    public var dateValue: Date {
         get {
             let dateFormatter = DateFormatter()
             dateFormatter.dateFormat = "yyyy-MM-dd"
@@ -33,16 +32,15 @@ struct DatePrice {
         }
     }
     
-    var priceWithCurrencyCode: String {
+    public var priceWithCurrencyCode: String {
         get {
            return self.price.currencyFormat(code: self.currency)!
         }
     }
-    
 }
 
 extension DatePrice: Hashable {
-    var hashValue: Int {
+    public var hashValue: Int {
         return date.hashValue ^ price.hashValue ^ currency.hashValue
     }
 }
