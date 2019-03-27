@@ -1,20 +1,22 @@
-## BitcoinBolt
+# BitcoinBolt
+<p align="center">
+  <img src="./screen_1.png" width="200" height="400"  />
+  <img src="./screen_2.png" width="200" height="400"  />
+</p>
 
 
 # Requirements
 
 - Xcode 9 or later
 
-# Information
+# Compatability
 
-- **Compatibility**: Requires iOS 11.0 or later.
+- Requires iOS 11.0 or later.
 
 
 # Usage
 
-Clone the github repository and open the `BitcoinBolt.xcodeproj` file and run.
-
-
+Clone the github repository and open the `BitcoinBolt.xcodeproj` file and hit run.
 
 
 # Technical Considerations
@@ -29,6 +31,8 @@ The app architecture is centered around the Singleton pattern which creates a st
 - Some animations to improve the user experience
 - More Crypto
 
+
+![](https://media.giphy.com/media/OS8mPktWKwacg/giphy.gif)
 
 
 
