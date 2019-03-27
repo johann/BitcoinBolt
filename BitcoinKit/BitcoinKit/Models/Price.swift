@@ -18,8 +18,9 @@ public struct Price: Codable {
         }
     }
     
+    
+    
 }
-
 public struct DatePrice: Codable {
     public var date: String
     public var currency: String
@@ -36,6 +37,12 @@ public struct DatePrice: Codable {
         get {
            return self.price.currencyFormat(code: self.currency)!
         }
+    }
+    
+    public init (date: String, currency: String, price: Double) {
+        self.date = date
+        self.currency = currency
+        self.price = price
     }
 }
 

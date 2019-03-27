@@ -27,9 +27,9 @@ The app architecture is centered around the Singleton pattern which creates a st
 
 ## Future improvements
 - Caching
+- More robust error handling
 - More Testing!
 - Some animations to improve the user experience
-- More Crypto
 
 
 ![](https://media.giphy.com/media/OS8mPktWKwacg/giphy.gif)

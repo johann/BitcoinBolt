@@ -7,11 +7,14 @@
 //
 
 import Foundation
+import CoreData
 import BitcoinKit
+
 
 final class DataStore {
     private init () {}
     static let shared = DataStore()
+    
     var currentPrice: CurrentPrice?
     var currentPriceByCurrency: [Currency: DatePrice] = [:]
     var pricesByCurrency: [Currency: [DatePrice]] = [:]
@@ -27,24 +30,14 @@ final class DataStore {
         }
     }
     
-    func fetchCurrentPrice(completion: @escaping () -> ()) {
-        BitcoinClient().getCurrentPrice { (currentPrice) in
+    func fetchCurrentPrice(client: BitcoinClient = BitcoinClient(), completion: @escaping () -> ()) {
+        client.getCurrentPrice { (currentPrice) in
             self.currentPrice = currentPrice
             completion()
         }
     }
     
-    func fetchPricesAtIndex(_ index: Int) -> [Currency: DatePrice] {
-        var prices: [Currency: DatePrice] = [:]
-        for currency in Currency.allCases {
-            guard let datePrices = self.pricesByCurrency[currency] else { return [:] }
-            let priceAtIndex = datePrices[index]
-            prices[currency] = priceAtIndex
-        }
-        return prices
-    }
-    
-    func fetchPastPrices(_ numOfDays: Int = Constants.numberOfDays, completion: @escaping () -> ()) {
+    func fetchPastPrices(_ numOfDays: Int = Constants.numberOfDays, client: BitcoinClient = BitcoinClient(), completion: @escaping () -> ()) {
         let operation = BlockOperation {
             let group = DispatchGroup()
             
@@ -70,4 +63,15 @@ final class DataStore {
         operation.start()
         completionOperation.start()
     }
+    
+    func fetchPricesAtIndex(_ index: Int) -> [Currency: DatePrice] {
+        var prices: [Currency: DatePrice] = [:]
+        for currency in Currency.allCases {
+            guard let datePrices = self.pricesByCurrency[currency] else { return [:] }
+            let priceAtIndex = datePrices[index]
+            prices[currency] = priceAtIndex
+        }
+        return prices
+    }
 }
+

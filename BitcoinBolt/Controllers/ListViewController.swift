@@ -55,15 +55,7 @@ class ListViewController: UICollectionViewController {
         }
     }
     
-    // MARK: View Helpers
-    
-    func setupCollectionViewLayout() {
-        guard let layout = collectionViewLayout as? UICollectionViewFlowLayout else { return }
-        layout.sectionHeadersPinToVisibleBounds = true
-        layout.itemSize = CGSize(width: collectionView.frame.width, height: 100)
-        layout.minimumLineSpacing = 2
-    }
-    
+    // MARK: Navigation Helper
     @objc func showDetailViewForHeader() {
         let storyboard = UIStoryboard(name:"Main", bundle: nil)
         guard let currencyController = storyboard.instantiateViewController(withIdentifier: Constants.currencyControllerIdentifier) as? CurrencyViewController else { return }
@@ -73,8 +65,18 @@ class ListViewController: UICollectionViewController {
     }
 }
 
-// MARK: CollectionView DataSource
+// MARK: CollectionView View Setuo
 
+extension ListViewController {
+    func setupCollectionViewLayout() {
+        guard let layout = collectionViewLayout as? UICollectionViewFlowLayout else { return }
+        layout.sectionHeadersPinToVisibleBounds = true
+        layout.itemSize = CGSize(width: collectionView.frame.width, height: 100)
+        layout.minimumLineSpacing = 2
+    }
+}
+
+// MARK: CollectionView DataSource
 extension ListViewController {
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return self.rates.count

@@ -8,27 +8,24 @@
 
 import XCTest
 @testable import BitcoinBolt
+@testable import BitcoinKit
 
 class BitcoinBoltTests: XCTestCase {
+    func testListViewController() {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let nav = storyboard.instantiateInitialViewController() as? UINavigationController
+        let listVC = nav?.viewControllers.first as! ListViewController
 
-    override func setUp() {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
-    }
-
-    override func tearDown() {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
-    }
-
-    func testExample() {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-    }
-
-    func testPerformanceExample() {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
+        listVC.loadViewIfNeeded()
+        var prices = [DatePrice]()
+        for _ in 1...14 {
+            let price = Int(arc4random_uniform(100))
+            prices.append(DatePrice(date: "2019-02-24", currency: "EUR", price: Double(price)))
         }
+    
+        listVC.rates = prices
+        
+        listVC.collectionView.reloadData()
+        XCTAssertEqual(listVC.collectionView.numberOfItems(inSection: 0), 14)
     }
-
 }

@@ -10,15 +10,28 @@ import Foundation
 
 public enum TopLevelCodingKeys: String, CodingKey { case time, bpi }
 
-public struct CurrentPrice: Decodable {
+public struct CurrentPrice {
     public var eurPrice: Price
     public var usPrice: Price
-    var updatedAt: Date?
+    public var updatedAt: Date?
     
+    static func parse(_ data: Data) -> CurrentPrice  {
+        let decoder = JSONDecoder()
+        decoder.keyDecodingStrategy = .convertFromSnakeCase
+        decoder.dateDecodingStrategy = .iso8601
+        return try! JSONDecoder().decode(CurrentPrice.self, from: data)
+    }
     
+    public init(eurPrice: Price, usPrice: Price, updatedAt: Date?) {
+        self.eurPrice = eurPrice
+        self.usPrice = usPrice
+        self.updatedAt = updatedAt
+    }
+}
+
+extension CurrentPrice: Decodable {
     enum TimeCodingKeys: String, CodingKey { case updated, updateduk, updatedISO }
     enum CurrencyKeys: String, CodingKey { case USD, EUR }
-    
     public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: TopLevelCodingKeys.self)
         let timeContainer = try container.nestedContainer(keyedBy: TimeCodingKeys.self, forKey: .time)
@@ -30,13 +43,6 @@ public struct CurrentPrice: Decodable {
         let currencyContainer = try container.nestedContainer(keyedBy: CurrencyKeys.self, forKey: .bpi)
         self.eurPrice = try currencyContainer.decode(Price.self, forKey: .EUR)
         self.usPrice = try currencyContainer.decode(Price.self, forKey: .USD)
-    }
-    
-    static func parse(_ data: Data) -> CurrentPrice  {
-        let decoder = JSONDecoder()
-        decoder.keyDecodingStrategy = .convertFromSnakeCase
-        decoder.dateDecodingStrategy = .iso8601
-        return try! JSONDecoder().decode(CurrentPrice.self, from: data)
     }
 }
 
