@@ -149,7 +149,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wdR-1u-hAY">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wdR-1u-hAY" userLabel="Eur">
                                 <rect key="frame" x="35" y="271" width="125" height="125"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="$3000" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9rm-Z4-l3R">
@@ -243,11 +243,14 @@
                     <connections>
                         <outlet property="dateLabel" destination="KXq-fP-8ZS" id="0rd-qG-BE4"/>
                         <outlet property="eurLabel" destination="9rm-Z4-l3R" id="pn5-XU-q0Z"/>
-                        <outlet property="eurView" destination="wdR-1u-hAY" id="kG3-SB-vkX"/>
+                        <outlet property="eurView" destination="wdR-1u-hAY" id="dhs-wt-5a1"/>
+                        <outlet property="eurXLayout" destination="Uod-UO-0a9" id="gTC-9m-Ffg"/>
                         <outlet property="gbpLabel" destination="pzw-nl-yVc" id="yby-5B-q1v"/>
                         <outlet property="gbpView" destination="pwh-by-d1u" id="sDs-su-5Jh"/>
+                        <outlet property="gbpXLayout" destination="RnZ-YS-wPb" id="5hs-hd-h59"/>
                         <outlet property="usdLabel" destination="kYy-yv-WPn" id="4Jp-Lz-7do"/>
                         <outlet property="usdView" destination="NeP-Jk-hHk" id="55R-EJ-zWd"/>
+                        <outlet property="usdXLayout" destination="GfE-pJ-X84" id="2S2-q2-8ro"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="yfd-Kc-c4T" userLabel="First Responder" sceneMemberID="firstResponder"/>
