@@ -19,6 +19,7 @@
 		C126D2B2224877DF009AE5D4 /* Double+Currency.swift in Sources */ = {isa = PBXBuildFile; fileRef = C126D2B1224877DF009AE5D4 /* Double+Currency.swift */; };
 		C126D359224B1243009AE5D4 /* HelperTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C126D358224B1243009AE5D4 /* HelperTests.swift */; };
 		C1548B2B2252FD2D00BDFE0B /* BitcoinKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C126D24822486CBD009AE5D4 /* BitcoinKit.framework */; };
+		C1548B372253885E00BDFE0B /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1548B362253885E00BDFE0B /* NetworkError.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -46,6 +47,7 @@
 		C126D2AF2248779D009AE5D4 /* DateHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateHelpers.swift; sourceTree = "<group>"; };
 		C126D2B1224877DF009AE5D4 /* Double+Currency.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Double+Currency.swift"; sourceTree = "<group>"; };
 		C126D358224B1243009AE5D4 /* HelperTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelperTests.swift; sourceTree = "<group>"; };
+		C1548B362253885E00BDFE0B /* NetworkError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkError.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -124,6 +126,7 @@
 			children = (
 				C126D26322486F7E009AE5D4 /* Endpoint.swift */,
 				C126D26222486F7E009AE5D4 /* BitcoinClient.swift */,
+				C1548B362253885E00BDFE0B /* NetworkError.swift */,
 			);
 			path = Client;
 			sourceTree = "<group>";
@@ -255,6 +258,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C126D26922487004009AE5D4 /* CurrentPrice.swift in Sources */,
+				C1548B372253885E00BDFE0B /* NetworkError.swift in Sources */,
 				C126D2B2224877DF009AE5D4 /* Double+Currency.swift in Sources */,
 				C126D26B22487004009AE5D4 /* Currency.swift in Sources */,
 				C126D26A22487004009AE5D4 /* Price.swift in Sources */,
