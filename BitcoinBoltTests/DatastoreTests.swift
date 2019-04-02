@@ -25,14 +25,14 @@ class DatastoreTests: XCTestCase {
     
     func testFetchCurrentPrice() {
         class ClientMock: BitcoinClient {
-            override func getCurrentPrice(currency: Currency, completion: @escaping (CurrentPrice?) -> ()) {
+            override func getCurrentPrice(currency: Currency = .EUR, result: @escaping BitcoinClient.CurrentPriceHandler) {
                 let eurPrice = Price(code: "EUR", rate: "300", rate_float: 300.0)
                 let usdPrice = Price(code: "USD", rate: "301", rate_float: 301.0)
                 let currentPrice = CurrentPrice(eurPrice: eurPrice, usPrice: usdPrice, updatedAt: Date())
-                completion(currentPrice)
+                result(.success(currentPrice))
             }
         }
-        
+       
         store.fetchCurrentPrice(client: ClientMock()) {
             let price = self.store.currentPrice?.eurPrice
             XCTAssertEqual(price?.code, "EUR")
@@ -53,8 +53,8 @@ class DatastoreTests: XCTestCase {
                 
             }
             
-            override func getHistoricalLists(currency: Currency, completion: @escaping ([DatePrice]?) -> ()) {
-               completion(datePriceFactory())
+            override func getHistoricalLists(currency: Currency = .EUR, result: @escaping BitcoinClient.DatePriceHandler) {
+                result(.success(datePriceFactory()))
             }
         }
         
